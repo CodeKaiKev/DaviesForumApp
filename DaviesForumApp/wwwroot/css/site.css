@@ -1,0 +1,38 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.davies-colour {
+  background-color: #10444C;
+}
+
+.active {
+  border-bottom: 1px solid blue;
+}
+
+.btn-dark {
+  border-radius: 5px;
+}
+
+.btn-light {
+  border-radius: 5px;
+}
+
+.btn-primary {
+  border-radius: 5px;
+}
