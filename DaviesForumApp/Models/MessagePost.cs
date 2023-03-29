@@ -20,7 +20,7 @@ namespace DaviesForumApp.Models
         //User Relations
         public User? User { get; set; }
        
-
+        
         //Replies Relations
         public List<Replies>? Replies { get; set; }
     }

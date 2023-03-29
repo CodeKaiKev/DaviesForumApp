@@ -1,0 +1,87 @@
+﻿@model IEnumerable<DaviesForumApp.Models.Replies>
+<br />
+<h1>List of Replies</h1>
+<br />
+
+@using (Html.BeginForm("Search", "Replies", FormMethod.Get))
+{
+
+    @Html.TextBox("searching")
+    <input type="submit" value="Search Bar" asp-action="Search" asp-controller="Replies" />
+}
+<br />
+<p>
+    <a asp-action="Create" class="btn btn-warning"><i class="fa-solid fa-pen"></i>  Reply to a Post</a>
+</p>
+<br />
+
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+                Message
+            </th>
+            <th>
+                Message ID
+            </th>
+            <th>
+                Original Poster's ID
+            </th>
+            <th>
+                Reply to Query
+            </th>
+            <th>
+                Replier's Name
+            </th>
+
+            <th>
+                Functionality
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() == 0)
+        {
+        <td colspan="7" style="color:red">
+            No Matches Available
+        </td>
+        }
+        else if (Model.Count() != 0)
+        {
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                        @Html.DisplayFor(modelItem => item.MessagePost.Title)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.MessagePost.Message)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.MessagePost.Id)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.MessagePost.UserId)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.Reply)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                </td>
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success btn-sm mr-2"><i class="fa-solid fa-pen-to-square"></i></a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-warning btn-sm mr-2"><i class="fa-solid fa-circle-info"></i></a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm mr-2"><i class="fa-solid fa-trash"></i></a>
+                </td>
+            </tr>
+            }
+        }
+
+
+    </tbody>
+</table>

@@ -1,14 +1,55 @@
-﻿@{
+﻿@model IEnumerable<DaviesForumApp.Models.Replies>
+@{
     ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Davies</h1>
-    <a class="nav-link text-dark" asp-controller="MessagePosts" asp-action="Index">Posts</a>
+<section class="jumbotron text-center p-2">
+    <div class="container">
+        <h1 class="jumbotron-heading">Davies Forum</h1>
+        <p class="lead text-muted">The Davies Forum Information etc.</p>
+    </div>
+</section>
 
-
-
-    <form method="post">
-        <div
-    </form>
+<div class="album p-5 bg-light">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div id="border">
+                    <h2>What is the Davies Forum</h2>
+                    <p>The Davies Forum app is a community for everyone here at Davies. Its a place to connect, share and inspire others.</p>
+                </div>
+            </div>
+        </div>
+        <br />
+        <br />
+    </div>
 </div>
+
+<div class="album p-5 davies-colour text-light">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div id="border">
+                    <h2>How It Works</h2>
+                    <p>Welcome to the Davies' Forum App. This site enables you to write queries/posts that you may have and you can also reply to other people's posts. The main reason this was created was to create a community within the company. To be able to access the necessary information please log in.</p>
+                    <ul>
+                        <li>Create an Account with your existing Davies credentials</li>
+                        <li>Or Register a new account</li>
+                        <li>Create a new Post</li>
+                        <li>Or Browse through previous ones, and reply to them</li>
+                        <li>View current and previous discussions</li>
+                        <li>Update your account, posts and messages</li>
+                        <li>Delete your account, posts and messages</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <br />
+        <br />
+    </div>
+</div>
+
+
+
+

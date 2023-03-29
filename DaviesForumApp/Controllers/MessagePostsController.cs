@@ -18,7 +18,17 @@ namespace DaviesForumApp.Controllers
         {
             _context = context;
         }
-
+        //Search Bar
+        public async Task<IActionResult> Search(string searching)
+        {
+            var dataContext = _context.Posts.Include(m => m.User);
+            return View(dataContext.Where(x => x.Title.StartsWith(searching) || searching == null).ToList());
+        }
+        
+        public async Task<IActionResult> Searcher(string searching)
+        {
+            return View(_context.Posts.Where(x => x.Title.StartsWith(searching) || searching == null).ToList());
+        }
         // GET: MessagePosts
         public async Task<IActionResult> Index()
         {
@@ -36,6 +46,7 @@ namespace DaviesForumApp.Controllers
 
             var messagePost = await _context.Posts
                 .Include(m => m.User)
+                .Include(k => k.Replies)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (messagePost == null)
             {
@@ -64,7 +75,7 @@ namespace DaviesForumApp.Controllers
             {
                 _context.Add(messagePost);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Search));
             }
             ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserName", messagePost.UserId);
             return View(messagePost);
@@ -120,7 +131,7 @@ namespace DaviesForumApp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Search));
             }
             ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserName", messagePost.UserId);
             return View(messagePost);
@@ -161,7 +172,7 @@ namespace DaviesForumApp.Controllers
             }
             
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Search));
         }
 
         private bool MessagePostExists(int id)

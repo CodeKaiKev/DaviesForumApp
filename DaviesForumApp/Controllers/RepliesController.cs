@@ -18,7 +18,12 @@ namespace DaviesForumApp.Controllers
         {
             _context = context;
         }
-
+        //Search Bar
+        public async Task<IActionResult> Search(string searching)
+        {
+            var dataContext = _context.Replies.Include(r => r.MessagePost);
+            return View(dataContext.Where(x => x.Reply.StartsWith(searching) || searching == null).ToList());
+        }
         // GET: Replies
         public async Task<IActionResult> Index()
         {
@@ -63,7 +68,7 @@ namespace DaviesForumApp.Controllers
             {
                 _context.Add(replies);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Search));
             }
             ViewData["MessagePostId"] = new SelectList(_context.Posts, "Id", "Message", replies.MessagePostId);
             return View(replies);
@@ -116,7 +121,7 @@ namespace DaviesForumApp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Search));
             }
             ViewData["MessagePostId"] = new SelectList(_context.Posts, "Id", "Message", replies.MessagePostId);
             return View(replies);
@@ -157,7 +162,7 @@ namespace DaviesForumApp.Controllers
             }
             
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Search));
         }
 
         private bool RepliesExists(int id)

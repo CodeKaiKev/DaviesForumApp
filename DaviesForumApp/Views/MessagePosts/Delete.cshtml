@@ -4,7 +4,9 @@
     ViewData["Title"] = "Delete";
 }
 
-
+@{
+    
+}
 
 <h1>Delete</h1>
 
@@ -35,7 +37,59 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <button type="button" id="delete-item-btn" onClick="deleteCheck()" class="btn btn-danger" data-toggle="modal" data-target="delete-modal">Delete</button>
+        <a asp-action="Search" class="btn btn-dark p-2">Back</a>
     </form>
 </div>
+
+<!-- Modal -->
+
+<div id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="delete-modal">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h4 class="modal-title text-dark">Delete Confirmation</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+            <p class="text-dark">Are you sure you want to delete @Model.Message? This cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+            <form asp-action="Delete">
+                <button type="submit" asp-action="Delete" value="Delete" class="btn btn-danger">Delete</button>
+            </form>
+            </div>
+        </div>   
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <script type="text/javascript" language="JavaScript">
+            function deleteCheck() {
+                const modal = document.getElementById("delete-modal");
+
+                const btn = document.getElementById("delete-item-btn");
+
+                const button = document.getElementsByClassName("close")[0];
+
+                btn.onclick = function () {
+                    modal.style.display = "block"
+                }
+
+                button.onclick = function () {
+                    modal.style.display = "none"
+                }
+
+                window.onclick = function (event) {
+                    if (event.target == modal) {
+                        modal.style.display = "none";
+                    }
+                };
+            }
+        </script>
+    }
+    
+}

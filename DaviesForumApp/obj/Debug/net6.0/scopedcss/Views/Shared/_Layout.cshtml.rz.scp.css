@@ -46,3 +46,8 @@ button.accept-policy[b-qzxc3pg4ua] {
   white-space: nowrap;
   line-height: 60px;
 }
+
+.table[b-qzxc3pg4ua] {
+    border-style: dashed;
+    border-color: black;
+}

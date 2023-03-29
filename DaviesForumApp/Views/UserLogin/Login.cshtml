@@ -1,0 +1,67 @@
+﻿@model DaviesForumApp.Models.User
+
+@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<h1>Login</h1>
+<hr />
+<div class="text-center">
+    <section class="vh-50 gradient-custom">
+        <div class="container py-1 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div style="border-radius: 5px;">
+                        <div class="card-body p-5 davies-colour text-light text-center">
+
+                            <div class="mb-md-1 mt-md-1 pb-2">
+
+                                <form asp-action="Login" asp-controller="UserLogin" class="col-12 text-center">
+                                    <div class="form-group p-2">
+                                        <label asp-for="UserName" class="control-label"></label>
+                                        <input asp-for="UserName" class="form-control" placeholder="Name" />
+                                        <span asp-validation-for="UserName" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group p-2">
+                                        <label asp-for="PassWord" class="control-label"></label>
+                                        <input asp-for="PassWord" class="form-control" placeholder="Password" id="myInput" type="password" />
+                                        <span asp-validation-for="PassWord" class="text-danger"></span>
+                                        <br>
+                                        <input type="checkbox" onclick="myFunction()"> Show Password
+                                        
+                                        
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" value="Login">Login</button>
+                                </form>
+
+                            </div>
+
+                            <div>
+                                <p class="mb-0">
+                                    Don't have an account? <a  asp-controller="Users" asp-action="Create">Sign Up</a>
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <script type="text/javascript" language="JavaScript">
+                function myFunction() {
+                    var x = document.getElementById("myInput");
+                    if (x.type === "password") {
+                        x.type = "text";
+                    } else {
+                        x.type = "password";
+                    }
+                }
+        </script>
+    }
+}

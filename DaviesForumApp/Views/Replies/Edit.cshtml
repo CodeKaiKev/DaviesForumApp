@@ -1,14 +1,15 @@
 ﻿@model DaviesForumApp.Models.Replies
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Index";
+    
 }
 
 <h1>Edit</h1>
 
 <h4>Replies</h4>
 <hr />
-<div class="row">
+<!-- <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -36,6 +37,47 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Search">Back to List</a>
+</div> -->
+
+<div class="text-center"> 
+    <section class="vh-50 gradient-custom">
+        <div class="container py-1 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-8 col-xl-5">
+                    <div style="border-radius: 5px;">
+                        <div class="card-body p-5 form-style text-dark text-center">
+                            <div class="mb-md-1 mt-md-1 pb-2">
+                                <form asp-action="Edit" class="col-12 text-center">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="Id" />
+                                    <div class="form-group p-2">
+                                        <label  class="control-label">Message</label>
+                                        <select asp-for="MessagePostId" class="form-control" asp-items="ViewBag.MessagePostId" readonly></select>
+                                        <span asp-validation-for="MessagePostId" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group p-2">
+                                        <label asp-for="Name" class="control-label"></label>
+                                        <input asp-for="Name" class="form-control" />
+                                        <span asp-validation-for="Name" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group p-2">
+                                        <label asp-for="Reply" class="control-label"></label>
+                                        <textarea asp-for="Reply" class="form-control"></textarea>
+                                        <span asp-validation-for="Reply" class="text-danger"></span>
+                                    </div>
+                                    <br />
+                                    <button type="submit" class="btn btn-success p-2 pt-2 pb-2" value="Save">Update</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 
+<div>
+    <a asp-action="Search" class="btn btn-dark p-2">Back</a>
+</div>

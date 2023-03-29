@@ -18,7 +18,12 @@ namespace DaviesForumApp.Controllers
         {
             _context = context;
         }
-
+        //Search Bar
+        public async Task<IActionResult> Search(string searching)
+        {
+            
+            return View(_context.Users.Where(x => x.UserName.StartsWith(searching) || searching == null).ToList());
+        }
         // GET: Users
         public async Task<IActionResult> Index()
         {
@@ -34,8 +39,9 @@ namespace DaviesForumApp.Controllers
             {
                 return NotFound();
             }
-
+           
             var user = await _context.Users
+                .Include(m => m.Posts)
                 .FirstOrDefaultAsync(m => m.UserId == id);
             if (user == null)
             {
@@ -62,7 +68,9 @@ namespace DaviesForumApp.Controllers
             {
                 _context.Add(user);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Login", "UserLogin", new { area = "" });
+
+
             }
             return View(user);
         }
@@ -113,7 +121,7 @@ namespace DaviesForumApp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Search));
             }
             return View(user);
         }
@@ -152,12 +160,14 @@ namespace DaviesForumApp.Controllers
             }
             
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Search));
         }
 
         private bool UserExists(int id)
         {
           return (_context.Users?.Any(e => e.UserId == id)).GetValueOrDefault();
         }
+
+        
     }
 }

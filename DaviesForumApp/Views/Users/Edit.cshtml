@@ -1,14 +1,15 @@
 ﻿@model DaviesForumApp.Models.User
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Index";
+    
 }
 
 <h1>Edit</h1>
 
 <h4>User</h4>
 <hr />
-<div class="row">
+<!-- <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -20,7 +21,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="PassWord" class="control-label"></label>
-                <input asp-for="PassWord" class="form-control" />
+                <input class="form-control" id="myInput" type="password" asp-for="PassWord"  value="@Model.PassWord">
+                <input type="checkbox" onclick="myFunction()"> Show Password
                 <span asp-validation-for="PassWord" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -46,6 +48,74 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Search">Back to List</a>
+</div> -->
+
+<div class="text-center"> 
+    <section class="vh-50 gradient-custom">
+        <div class="container py-1 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-8 col-xl-5">
+                    <div style="border-radius: 5px;">
+                        <div class="card-body p-5 form-user-style text-light text-center">
+                            <div class="mb-md-1 mt-md-1 pb-2">
+                                <form asp-action="Edit" class="col-12 text-center">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="UserId" />
+                                    <div class="form-group p-2">
+                                        <label asp-for="UserName" class="control-label"></label>
+                                        <input asp-for="UserName" class="form-control" />
+                                        <span asp-validation-for="UserName" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group p-2">
+                                        <label asp-for="PassWord" class="control-label"></label>
+                                        <input class="form-control" id="myInput" type="password" asp-for="PassWord"  value="@Model.PassWord">
+                                        <input type="checkbox" onclick="myFunction()"> Show Password
+                                        <span asp-validation-for="PassWord" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group p-2">
+                                        <label asp-for="UserEmail" class="control-label"></label>
+                                        <input asp-for="UserEmail" class="form-control" />
+                                        <span asp-validation-for="UserEmail" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group p-2">
+                                        <label asp-for="Department" class="control-label"></label>
+                                        <input asp-for="Department" class="form-control" />
+                                        <span asp-validation-for="Department" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group p-2">
+                                        <label asp-for="Age" class="control-label"></label>
+                                        <input asp-for="Age" class="form-control" />
+                                        <span asp-validation-for="Age" class="text-danger"></span>
+                                    </div>
+                                    <br />
+                                    <button type="submit" class="btn btn-success p-2 pt-2 pb-2" value="Save">Update</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 
+<div>
+    <a asp-action="Search" class="btn btn-dark p-2">Back</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <script type="text/javascript" language="JavaScript">
+            function myFunction() {
+                var x = document.getElementById("myInput");
+                if (x.type === "password") {
+                    x.type = "text";
+                } else {
+                    x.type = "password";
+                }
+            }
+        </script>
+    }
+}

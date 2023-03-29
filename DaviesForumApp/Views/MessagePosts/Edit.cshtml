@@ -2,15 +2,16 @@
 
 @{
     ViewData["Title"] = "Edit";
+    
 }
 
 
-
-<h1>Edit</h1>
-
-<h4>MessagePost</h4>
+<h1 class="p-2">Edit This Post</h1>
 <hr />
-<div class="row">
+
+<br />
+
+<!-- <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -38,6 +39,47 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Search">Back</a>
+</div> -->
+
+<div class="text-center"> 
+    <section class="vh-50 gradient-custom">
+        <div class="container py-1 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-8 col-xl-5">
+                    <div style="border-radius: 5px;">
+                        <div class="card-body p-5 form-style text-dark text-center">
+                            <div class="mb-md-1 mt-md-1 pb-2">
+                                <form asp-action="Edit" class="col-12 text-center">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="Id" />
+                                    <div class="form-group p-2">
+                                        <label asp-for="UserId" class="control-label"></label>
+                                        <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
+                                        <span asp-validation-for="UserId" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group p-2">
+                                        <label asp-for="Title" class="control-label"></label>
+                                        <input asp-for="Title" class="form-control" />
+                                        <span asp-validation-for="Title" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group p-2">
+                                        <label asp-for="Message" class="control-label"></label>
+                                        <textarea asp-for="Message" class="form-control"></textarea>
+                                        <span asp-validation-for="Message" class="text-danger"></span>
+                                    </div>
+                                    <br />
+                                    <button type="submit" class="btn btn-success p-2 pt-2 pb-2" value="Save">Update</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 
+<div>
+    <a asp-action="Search" class="btn btn-dark p-2">Back</a>
+</div>

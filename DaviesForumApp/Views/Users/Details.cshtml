@@ -1,52 +1,128 @@
 ﻿@model DaviesForumApp.Models.User
 
 @{
-    ViewData["Title"] = "Details";
-}
-
-<h1>Details</h1>
-
-<div>
-    <h4>User</h4>
-    <hr />
-
-        <dl class="row">
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.UserName)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.UserName)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.PassWord)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.PassWord)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.UserEmail)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.UserEmail)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Department)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Department)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Age)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Age)
-            </dd>
-
-        </dl>
- 
+    ViewData["Title"] = "Index";
     
+}
+<h1>User Details</h1>
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between p-3">
+                    <p class="fw-bold mb-0">@Html.DisplayNameFor(model => model.UserName)</p>
+                </div>
+                <div class="card-body">
+                    <p class="mb-0">
+                    <p>@Html.DisplayFor(model => model.UserName)</p>
+                    </p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header d-flex justify-content-between p-3">
+                    <p class="fw-bold mb-0">@Html.DisplayNameFor(model => model.PassWord)</p>
+                </div>
+                <div class="card-body">
+                    <p class="mb-0">
+                        <input class="form-control" disabled value="@Html.DisplayFor(model => model.PassWord)" id="myInput" type="password">
+                        <input type="checkbox" onclick="myFunction()"> Show Password
+                    </p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header d-flex justify-content-between p-3">
+                    <p class="fw-bold mb-0">@Html.DisplayNameFor(model => model.UserEmail)</p>
+                </div>
+                <div class="card-body">
+                    <p class="mb-0">
+                    <p>@Html.DisplayFor(model => model.UserEmail)</p>
+                    </p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header d-flex justify-content-between p-3">
+                    <p class="fw-bold mb-0">@Html.DisplayNameFor(model => model.Department)</p>
+                </div>
+                <div class="card-body">
+                    <p class="mb-0">
+                    <p>@Html.DisplayFor(model => model.Department)</p>
+                    </p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header d-flex justify-content-between p-3">
+                    <p class="fw-bold mb-0">@Html.DisplayNameFor(model => model.Age)</p>
+                </div>
+                <div class="card-body">
+                    <p class="mb-0">
+                    <p>@Html.DisplayFor(model => model.Age)</p>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <br />
+        <br />
+        <div class="col">
+            <dt class="col-12 text-center">
+                <h3>Posts By User:</h3>
+            </dt>
+            <br />
+            <br />
+            @{
+                
+                foreach (var item in Model.Posts)
+
+                {
+                    
+                    {
+                        <div class="row d-flex justify-content-center m-2">
+                            <div class="col-md-8 col-lg-6">
+                                <div class="card shadow-0 border" style="border: 1px solid black;">
+                                    <div class="card-body bg-dark p-4">
+                                        <div class="card mb-4">
+                                            <div class="card-body">
+                                                <p class="fw-bold mb-0">Title: @item.Title</p>
+
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="d-flex flex-row align-items-center">
+                                                        <strong><p class="small mb-0 ms-2">Message: @item.Message</p></strong>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    }
+                   
+
+                }
+
+            }
+        </div>
+        </div>
 </div>
+</br>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.UserId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+            <a asp-action="Edit" asp-route-id="@Model?.UserId" class="btn btn-success"><i class="fa-solid fa-pen-to-square"></i> Edit</a> |
+            <a asp-action="Search" class="btn btn-dark">Back to List</a>
 </div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <script type="text/javascript" language="JavaScript">
+            function myFunction() {
+                var x = document.getElementById("myInput");
+                if (x.type === "password") {
+                    x.type = "text";
+                } else {
+                    x.type = "password";
+                }
+            }
+        </script>
+    }
+}

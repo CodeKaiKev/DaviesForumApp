@@ -6,51 +6,58 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DaviesForumApp.Data;
-
-using Microsoft.AspNetCore.Identity;
 using DaviesForumApp.Models;
+using Microsoft.AspNetCore.Identity;
+using NuGet.Protocol.Plugins;
+
 
 namespace DaviesForumApp.Controllers
 {
     public class UserLogin : Controller
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
+      
         private readonly DataContext _dataContext;
 
-        public UserLogin(UserManager<User> userManager, SignInManager<User> signInManager, DataContext dataContext)
+        public UserLogin(DataContext dataContext)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
+           
             _dataContext = dataContext;
         }
         [HttpGet]
         public IActionResult Login()
         {
-            
             return View();
         }
-        //[HttpPost]
-        //public async Task<IActionResult> Login(User user)
-        //{
-         //   if (!ModelState.IsValid) return View(user);
 
-         //   var userR = await _userManager.FindByNameAsync(user.UserName);
-//
-         //   if(userR != null)
-         //   {
-        //        var passwordCheck = await _userManager.CheckPasswordAsync(userR, user.PassWord);
-         ///       if(passwordCheck)
-           //     {
-           //         var result = await _signInManager.PasswordSignInAsync(userR, user.PassWord, false, false);
-            //        if (result.Succeeded)
-         //           {
-         //               return RedirectToAction("Index", "MessagePost");
-         //           }
-         //       }
-        //        TempData["Error"] = "Wrong Credentials. Please, try again";
+        [HttpPost]
+        public IActionResult Login(User user)
+        {
+            Console.WriteLine("Testing");
+            
+                //return RedirectToAction("Success");
+            var User = from m in _dataContext.Users select m;
+            User = User.Where(s => s.UserName.Contains(user.UserName));
+            if (User.Count() != 0)
+            {
+                if (User.First().PassWord == user.PassWord)
+                {
+                    return RedirectToAction("Success");
+                }
+            }
+            
+            Console.WriteLine("Failed");
+            return RedirectToAction("Fail");
+        }
 
-        //    }
+        public IActionResult Success()
+        {
+            return View();
+        }
+
+        public IActionResult Fail()
+        {
+            return View();
         }
     }
+}
 

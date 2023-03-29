@@ -1,0 +1,62 @@
+﻿
+@model IEnumerable<DaviesForumApp.Models.MessagePost>
+<br/>
+<h1>List of Messages</h1>
+<br/>
+
+@using (Html.BeginForm("Search", "MessagePosts", FormMethod.Get)){
+    
+    @Html.TextBox("searching")<input type="submit" value="Search Bar" asp-action="Search" asp-controller="MessagePosts"/>
+}
+<br />
+<p>
+    <a asp-action="Create" class="btn btn-warning"><i class="fa-solid fa-pen"></i>  Create New Message</a>
+</p>
+<br/>
+
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">@Html.DisplayNameFor(model => model.Id)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.Title)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.Message)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.User.UserName)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.User.UserId)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.User.Department)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.User.UserEmail)</th>
+
+            <th>Functionality</th>
+        </tr>
+    </thead>
+    <tbody>
+@if (Model.Count() == 0)
+{
+    <td colspan="8" style="color:red">
+        No Matches Available
+    </td>
+}
+else if(Model.Count() != 0)
+{
+    @foreach (var item in Model)
+    {
+    <tr>
+                <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                <td>@Html.DisplayFor(modelItem => item.Message)</td>
+                <td>@Html.DisplayFor(modelItem => item.User.UserName)</td>
+                <td>@Html.DisplayFor(modelItem => item.User.UserId)</td>
+                <td>@Html.DisplayFor(modelItem => item.User.Department)</td>
+                <td>@Html.DisplayFor(modelItem => item.User.UserEmail)</td>
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success btn-sm mr-2"><i class="fa-solid fa-pen-to-square"></i></a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-warning btn-sm mr-2"><i class="fa-solid fa-circle-info"></i></a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm mr-2"><i class="fa-solid fa-trash"></i></a>
+                </td>
+    </tr>
+    }
+}
+
+        
+    </tbody>
+</table>
