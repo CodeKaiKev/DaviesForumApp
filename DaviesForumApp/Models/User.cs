@@ -19,8 +19,21 @@ namespace DaviesForumApp.Models
         [Required]
         [DisplayName("Password")]
         public string PassWord { get; set; }
+        [Compare("PassWord", ErrorMessage = "Confirm password doesn't match, Type again !")]
+        public string ConfirmPassword { get; set; }
+
         [DisplayName("Email")]
+       
         public string UserEmail { get; set; }
+
+        //[DisplayName("Phone")]
+        //public string? UserPhone { get; set; }
+        //[DisplayName("Telephone")]
+        //public string? UserPhone { get; set; }
+
+        //[DisplayName("Contact Option: Email/Phone/Both/None")]
+        //public string? UserOption { get; set; }
+
         [DisplayName("Department")]
         public string Department { get; set; }
         [DisplayName("Age")]

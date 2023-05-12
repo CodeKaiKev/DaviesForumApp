@@ -33,11 +33,33 @@
                                         <input type="checkbox" onclick="myFunction()"> Show Password
                                         <span asp-validation-for="PassWord" class="text-danger"></span>
                                     </div>
+                                     <div class="form-group p-2">
+                                        <label asp-for="ConfirmPassword" class="control-label"></label>
+                                        <input asp-for="ConfirmPassword" class="form-control" id="myInput2" type="password">
+                                        <input type="checkbox" onclick="myFunction2()"> Show Password
+                                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                    </div>
                                     <div class="form-group p-2">
                                         <label asp-for="UserEmail" class="control-label"></label>
                                         <input asp-for="UserEmail" class="form-control" />
                                         <span asp-validation-for="UserEmail" class="text-danger"></span>
                                     </div>
+                                   @* <div class="form-group p-2">
+                                        <label asp-for="UserPhone" class="control-label"></label>
+                                        <input asp-for="UserPhone" class="form-control" />
+                                        <span asp-validation-for="UserPhone" class="text-danger"></span>
+                                    </div>*@
+                                   @* <div class="form-group p-2">
+                                        <label asp-for="UserOption" class="control-label"></label>
+                                        <input asp-for="UserOption" class="form-control" />
+                                        <select asp-for="UserOption" class="form-control" name="Options">
+                                            <option value="Both">Email & Phone</option>
+                                            <option value="Email">Email Only</option>
+                                            <option value="Phone">Phone Only</option>
+                                            <option value="None">None</option>
+                                        </select>
+                                        <span asp-validation-for="UserOption" class="text-danger"></span>
+                                    </div>*@
                                     <div class="form-group p-2">
                                         <label asp-for="Department" class="control-label"></label>
                                         <input asp-for="Department" class="form-control" />
@@ -75,6 +97,17 @@
                 } else {
                     x.type = "password";
                 }
+            }
+            function myFunction2() {
+                var x = document.getElementById("myInput2");
+                if (x.type === "password") {
+                    x.type = "text";
+                } else {
+                    x.type = "password";
+                }
+            }
+            function alertPop() {
+                alert("User has been created.")
             }
         </script>
     }

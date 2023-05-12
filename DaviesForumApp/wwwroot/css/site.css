@@ -15,8 +15,19 @@ html {
 
 body {
   margin-bottom: 60px;
+  background-color: black;
+  color: black;
+  text-align: center;
+  justify-content: center;
 }
 
+h1 {
+	color: gold;
+	text-align: center;
+}
+#nec {
+	
+}
 .davies-colour {
   background-color: #10444C;
 }
@@ -58,7 +69,9 @@ body {
 	margin-top: -30px;
 	margin-left: -60px;
 }
-
+#darkM {
+	color: white;
+}
 .speech-bubble-2 {
 	position: relative;
 	background: #196970;

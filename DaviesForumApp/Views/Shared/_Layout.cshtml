@@ -30,8 +30,12 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav flex-right">
+                    
                     <li class="nav-item p-1">
                         <a class="nav-link text-light btn-dark p-2" asp-area="" asp-controller="Home" asp-action="Index">Logout</a>
+                    </li>
+                    <li class="nav-item p-1">
+                        <h3 style="color:white">@Context.Session.GetString("UserName") is logged in.</h3>
                     </li>
                 </ul>
             </div>

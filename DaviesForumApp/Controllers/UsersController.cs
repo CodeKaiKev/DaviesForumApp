@@ -7,6 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DaviesForumApp.Data;
 using DaviesForumApp.Models;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using System.Security.Cryptography;
+using Scrypt;
+using System.Text;
 
 namespace DaviesForumApp.Controllers
 {
@@ -64,10 +70,47 @@ namespace DaviesForumApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create( User user)
         {
+            ScryptEncoder encoder= new ScryptEncoder();
+            var registeredUser = (from c in _context.Users
+                                 where c.UserName.Equals(user.UserName)
+                                 select c).SingleOrDefault();
+            if(registeredUser != null)
+            {
+                ViewBag.Error = "This username already registered.";
+                return View();
+            }
+
+            
             if (ModelState.IsValid)
             {
+                //Hashing Password
+                Console.WriteLine(user.PassWord);
+                user.PassWord = encoder.Encode(user.PassWord);
+                Console.WriteLine(user.PassWord);
+                user.ConfirmPassword = "";
                 _context.Add(user);
                 await _context.SaveChangesAsync();
+                //var accountSid = "AC24d492a15cd6b997aa72021d05a0b452";
+                //var authToken = "91080130215ecf62c914c218ffc0fa88";
+
+
+                //TwilioClient.Init(accountSid, authToken);
+
+                ////var mediaUrl = new[] { 
+                ////    new Uri("https://upload.wikimedia.org/wikipedia/en/4/44/Fire_Emblem_Awakening_box_art.png")
+                ////}.ToList();
+
+
+                //var message = MessageResource.Create(
+                //    body: "New user " + user.UserName + " has been created.",
+                //    from: new Twilio.Types.PhoneNumber("+447700163581"),
+                //    //mediaUrl: mediaUrl,
+                //    to: new Twilio.Types.PhoneNumber("+447506402293")
+
+                //);
+
+                //Console.WriteLine(message.Sid);
+                ViewBag.Error = "Registered successfully. Please login.";
                 return RedirectToAction("Login", "UserLogin", new { area = "" });
 
 
@@ -98,6 +141,7 @@ namespace DaviesForumApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id,  User user)
         {
+            ScryptEncoder encoder = new ScryptEncoder();
             if (id != user.UserId)
             {
                 return NotFound();
@@ -107,6 +151,7 @@ namespace DaviesForumApp.Controllers
             {
                 try
                 {
+                    user.PassWord = encoder.Encode(user.PassWord);
                     _context.Update(user);
                     await _context.SaveChangesAsync();
                 }

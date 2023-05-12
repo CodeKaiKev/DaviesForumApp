@@ -1,0 +1,169 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.davies-colour {
+  background-color: #10444C;
+}
+
+.active {
+  border-bottom: 1px solid blue;
+}
+
+.btn-dark {
+  border-radius: 5px;
+}
+
+.btn-light {
+  border-radius: 5px;
+}
+
+.btn-primary {
+  border-radius: 5px;
+}
+
+.speech-bubble {
+	position: relative;
+	background: #196970;
+	border-radius: .5em;
+  outline: 1px solid black;
+}
+
+.speech-bubble:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 60px solid transparent;
+	border-right-color: #196970;
+	border-left: 0;
+	border-bottom: 0;
+	margin-top: -30px;
+	margin-left: -60px;
+}
+
+.speech-bubble-2 {
+	position: relative;
+	background: #196970;
+	border-radius: .5em;
+  	outline: 1px solid black;
+}
+
+.speech-bubble-2:after {
+	content: '';
+	position: absolute;
+	right: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 60px solid transparent;
+	border-left-color: #196970;
+	border-right: 0;
+	border-bottom: 0;
+	margin-top: -30px;
+	margin-right: -60px;
+}
+
+.gold {
+	background-color: gold;
+}
+
+.form-style {
+	position: relative;
+	background: whitesmoke;
+	border-radius: .5em;
+  	outline: 1px solid black;
+}
+
+.form-user-style {
+	position: relative;
+	background: #196970;
+	border-radius: .5em;
+  	outline: 1px solid black;
+}
+
+/* Modal */
+
+#delete-modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 999; /* Sit on top */
+	left: 30%;
+	top: 40%;
+	width: 45%;
+	height: 45%;
+	overflow: auto;
+	overflow-y: hidden;
+	justify-content: center;
+	border-radius: 5px;
+	border: 1px solid #000
+  }
+  
+  .modal-body {
+	padding: 15px;
+  }
+  
+  .modal-title {
+	font-weight: bold;
+  }
+  
+  .modal-confirm {
+	  color: #636363;
+  }
+  
+  .modal-confirm .modal-content {
+	  padding: 20px;
+	  border-radius: 5px;
+	  border: none;
+	  text-align: center;
+  }
+  
+  .modal-confirm .modal-header {
+	  border-bottom: none;
+	  position: relative;
+  }
+  
+  .modal-confirm h4 {
+	  text-align: center;
+	  font-size: 26px;
+	  margin: 30px 0 -10px;
+  }
+  
+.close {
+	  position: absolute;
+	  top: 1%;
+	  right: 2%;
+  }
+  
+  .modal-confirm .modal-body {
+	  color: #999;
+  }
+  
+  .modal-confirm .modal-footer {
+	  border: none;
+	  text-align: center;
+	  border-radius: 5px;
+	  font-size: 13px;
+	  padding: 10px 15px 25px;
+  }
+  
+  .modal-confirm .modal-footer a {
+	  color: #999;
+  }

@@ -7,12 +7,17 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DaviesForumApp.Data;
 using DaviesForumApp.Models;
+using Microsoft.PowerBI.Api.Models;
+using Microsoft.PowerBI.Api;
 
 namespace DaviesForumApp.Controllers
 {
+   
     public class MessagePostsController : Controller
     {
         private readonly DataContext _context;
+
+
 
         public MessagePostsController(DataContext context)
         {
@@ -58,7 +63,15 @@ namespace DaviesForumApp.Controllers
 
         // GET: MessagePosts/Create
         public IActionResult Create()
+            
         {
+            //string check = HttpContext.Session.GetString("UserName");
+            //var sessionUser = (from c in _context.Users
+            //                      where c.UserName.Equals(check)
+            //                      select c).SingleOrDefault();
+
+            //ViewBag.UserId = sessionUser.UserId;
+            //var sessionUser = (from c in _context.Users where c.UserName.Equals(HttpContext.Session.GetString("UserName")) select c).SingleOrDefault();
             ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserName");
             return View();
         }
@@ -70,14 +83,16 @@ namespace DaviesForumApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create( MessagePost messagePost)
         {
+           
             
             if (ModelState.IsValid)
             {
+                //messagePost.UserId = (int)HttpContext.Session.GetInt32("UserId");
                 _context.Add(messagePost);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Search));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserName", messagePost.UserId);
+         
             return View(messagePost);
         }
 

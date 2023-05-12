@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DaviesForumApp.Data;
 using DaviesForumApp.Models;
+using Microsoft.PowerBI.Api.Models;
 
 namespace DaviesForumApp.Controllers
 {
@@ -62,10 +63,12 @@ namespace DaviesForumApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Reply,Name,MessagePostId")] Replies replies)
+        public async Task<IActionResult> Create([Bind("Id,Reply,MessagePostId")] Replies replies)
         {
+            replies.Name = "Name";
             if (ModelState.IsValid)
             {
+                replies.Name = HttpContext.Session.GetString("UserName");
                 _context.Add(replies);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Search));

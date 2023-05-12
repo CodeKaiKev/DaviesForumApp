@@ -9,7 +9,10 @@ using DaviesForumApp.Data;
 using DaviesForumApp.Models;
 using Microsoft.AspNetCore.Identity;
 using NuGet.Protocol.Plugins;
-
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
+using Scrypt;
+using Microsoft.AspNetCore.Http;
 
 namespace DaviesForumApp.Controllers
 {
@@ -32,18 +35,32 @@ namespace DaviesForumApp.Controllers
         [HttpPost]
         public IActionResult Login(User user)
         {
+            ScryptEncoder encoder = new ScryptEncoder();
             Console.WriteLine("Testing");
-            
-                //return RedirectToAction("Success");
-            var User = from m in _dataContext.Users select m;
-            User = User.Where(s => s.UserName.Contains(user.UserName));
-            if (User.Count() != 0)
+
+            //return RedirectToAction("Success");
+            var validUser = (from c in _dataContext.Users
+                             where c.UserName.Equals(user.UserName)
+                             select c).SingleOrDefault();
+            if(validUser == null)
             {
-                if (User.First().PassWord == user.PassWord)
-                {
-                    return RedirectToAction("Success");
-                }
+                ViewBag.Error = "Username or Password invalid";
+                return RedirectToAction("Fail");
             }
+            bool isValidCustomer = encoder.Compare(user.PassWord, validUser.PassWord);
+          
+            if (isValidCustomer)
+            {
+
+                HttpContext.Session.SetString("UserName", user.UserName);
+
+
+
+                HttpContext.Session.SetInt32("UserId", user.UserId);
+
+                return RedirectToAction("Success");
+               
+            } 
             
             Console.WriteLine("Failed");
             return RedirectToAction("Fail");
@@ -51,6 +68,7 @@ namespace DaviesForumApp.Controllers
 
         public IActionResult Success()
         {
+            
             return View();
         }
 

@@ -1,7 +1,9 @@
-﻿@model MessagePost
+﻿
+@using Microsoft.AspNetCore.Http;
+@model MessagePost
 
 @{
-    
+
 }
 
 <h1>Write a new Post</h1>
@@ -9,32 +11,32 @@
 
 <hr />
 <!-- <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label>User:</label>
-                <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Message" class="control-label"></label>
-                <input asp-for="Message" class="form-control" />
-                <span asp-validation-for="Message" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+<div class="col-md-4">
+<form asp-action="Create">
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="form-group">
+<label>User:</label>
+<select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
+</div>
+<div class="form-group">
+<label asp-for="Title" class="control-label"></label>
+<input asp-for="Title" class="form-control" />
+<span asp-validation-for="Title" class="text-danger"></span>
+</div>
+<div class="form-group">
+<label asp-for="Message" class="control-label"></label>
+<input asp-for="Message" class="form-control" />
+<span asp-validation-for="Message" class="text-danger"></span>
+</div>
+<div class="form-group">
+<input type="submit" value="Create" class="btn btn-primary" />
+</div>
+</form>
+</div>
 </div>
 
 <div>
-    <a asp-action="Search">Back to List</a>
+<a asp-action="Search">Back to List</a>
 </div> -->
 
 <div class="text-center">
@@ -46,9 +48,11 @@
                         <div class="card-body p-5 speech-bubble-2 text-light text-center">
                             <div class="mb-md-1 mt-md-1 pb-2">
                                 <form asp-action="Create" class="col-12 text-center">
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                     <div class="form-group p-2">
-                                        <label>User:</label>
+                                        <label>User</label>
+                                       @* <input asp-for="UserId" class="form-control" value="@Context.Session.GetInt32("UserID")">  @Context.Session.GetString("UserName") </input>*@
+                                      @* <input type="text" asp-for="UserId" class="form-control" value="@Context.Session.GetInt32("UserID")" placeholder="@Context.Session.GetString("UserName")"/>*@
                                         <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
                                     </div>
                                     <div class="form-group p-2">

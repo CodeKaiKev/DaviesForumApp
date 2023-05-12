@@ -1,9 +1,10 @@
 ﻿
 @model IEnumerable<DaviesForumApp.Models.MessagePost>
+<body style="background-color: black; color: white">
 <br/>
-<h1>List of Messages</h1>
+<h1>Message Board</h1>
 <br/>
-
+<div style="text-align: center; justify-content: center">
 @using (Html.BeginForm("Search", "MessagePosts", FormMethod.Get)){
     
     @Html.TextBox("searching")<input type="submit" value="Search Bar" asp-action="Search" asp-controller="MessagePosts"/>
@@ -12,9 +13,10 @@
 <p>
     <a asp-action="Create" class="btn btn-warning"><i class="fa-solid fa-pen"></i>  Create New Message</a>
 </p>
+</div>
 <br/>
 
-<table class="table table-striped">
+@*<table class="table table-striped">
     <thead class="thead-dark">
         <tr>
             <th scope="col">@Html.DisplayNameFor(model => model.Id)</th>
@@ -28,7 +30,7 @@
             <th>Functionality</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody>*@
 @if (Model.Count() == 0)
 {
     <td colspan="8" style="color:red">
@@ -37,7 +39,7 @@
 }
 else if(Model.Count() != 0)
 {
-    @foreach (var item in Model)
+   @* @foreach (var item in Model)
     {
     <tr>
                 <td>@Html.DisplayFor(modelItem => item.Id)</td>
@@ -54,9 +56,35 @@ else if(Model.Count() != 0)
                     <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm mr-2"><i class="fa-solid fa-trash"></i></a>
                 </td>
     </tr>
-    }
+    }*@
 }
 
         
-    </tbody>
-</table>
+   @* </tbody>
+</table>*@
+
+<br />
+
+
+    @foreach (var item in Model)
+    {
+            <div class="card" style="background-color: #10444C; color: white">
+          <div class="card-header">
+            Title: @Html.DisplayFor(modelItem => item.Title)
+          </div>
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+                  <p>Message: @Html.DisplayFor(modelItem => item.Message)</p>
+                      <footer class="blockquote-footer" style="color: white">@Html.DisplayFor(modelItem => item.User.UserName) from @Html.DisplayFor(modelItem => item.User.Department)</footer>
+            </blockquote>
+          </div>
+              
+              <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success btn-sm mr-2"><i class="fa-solid fa-pen-to-square"></i></a>
+              <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-warning btn-sm mr-2"><i class="fa-solid fa-circle-info"></i></a>
+              <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm mr-2"><i class="fa-solid fa-trash"></i></a>
+        </div>
+       
+        <br />
+    }
+
+</body>

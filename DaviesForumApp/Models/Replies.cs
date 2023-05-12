@@ -8,7 +8,7 @@ namespace DaviesForumApp.Models
         public int Id { get; set; }
         [Required]
         public string Reply { get; set; }
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         //Relational to message Database
 
